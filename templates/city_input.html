@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <style>
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            border-radius: 10px; /* Adding rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adding a box shadow for floating effect */
+        }
+
+        .card{
+            padding: 1% 1% 1% 1%;
+            border: none;
+        }
+        .card-body{
+
+            padding: 2% 2% 2% 2%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="middle">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Weather app</h5>
+          <p class="card-text">This weather app is developed using django and weather api.</p>
+          <form method="post" action="{% url 'city_input' %}">
+              {% csrf_token %}
+              <div class="form-outline">
+                <label class="form-label" for="inputBasicExample" style="text-align: left;">Enter the city</label>
+                <input type="text" id="inputBasicExample" class="form-control" name="city" required/>
+              </div><br>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    <form method="post" action="{% url 'city' %}" hidden>
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="enter city" value="">
+        <input type="submit">
+    </form>
+      {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+      {% endif %}
+</div>
+</body>
+</html>
